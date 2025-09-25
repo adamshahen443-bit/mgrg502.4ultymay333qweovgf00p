@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقنيات الريان - المتجر التقني الرائد في العراق</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --primary: #e30613;
+            --primary-dark: #c10510;
+            --secondary: #ff9800;
+            --dark: #1A1D29;
+            --light: #F8FAFF;
+            --gray: #6B7280;
+            --success: #10B981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            scroll-behavior: smooth;
+            line-height: 1.7;
+        }
+        
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-size: 2.8rem;
+            font-weight: 800;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 60%;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            border: 1px solid #E5E7EB;
+            overflow: hidden;
+            position: relative;
+            border-radius: 12px;
+            background: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(227, 6, 19, 0.15);
+            border-color: var(--primary);
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            z-index: 10;
+        }
+        
+        .category-chip {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .category-chip.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .product-image {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        @media (min-width: 1800px) {
+            .products-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <a href="#home" class="flex items-center space-x-4 space-x-reverse">
+                        <div class="bg-gradient-to-r from-primary to-primary-dark text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold text-xl">ر</div>
+                        <div>
+                            <h1 class="text-xl font-bold text-dark">تقنيات الريان</h1>
+                            <p class="text-gray-500 text-sm">المتجر التقني الرائد في العراق</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="hidden md:flex items-center space-x-4 space-x-reverse">
+                        <a href="#account" class="text-dark font-medium">حسابي</a>
+                        <a href="#wishlist" class="text-dark font-medium">المفضلة</a>
+                        <a href="#cart" class="text-dark relative">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="absolute -top-2 -right-2 bg-secondary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold" id="header-cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-20">
+        <div class="container">
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                <div class="lg:w-1/2 mb-10 lg:mb-0">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6 inline-block">
+                        <span class="font-medium">أكثر من 500,000 عميل واثق بنا</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">أحدث الأجهزة التقنية بأسعار تنافسية</h1>
+                    <p class="text-xl mb-8 opacity-90">اكتشف أكثر من 10,000 منتج تقني من أفضل العلامات التجارية العالمية مع خدمة التوصيل لجميع أنحاء العراق</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 space-x-reverse">
+                        <a href="#products" class="btn-primary">
+                            <span>تسوق الآن</span>
+                            <i class="fas fa-arrow-left mr-2"></i>
+                        </a>
+                        <a href="#bundles" class="btn-primary" style="background: transparent; border-color: white;">
+                            <span>التجميعات الجاهزة</span>
+                            <i class="fas fa-laptop mr-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="أجهزة تقنية" class="rounded-2xl shadow-2xl w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="py-16 bg-gray-50">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">أحدث المنتجات</h2>
+                <p class="text-gray-600 text-xl max-w-3xl mx-auto">اكتشف أكثر من 10,000 منتج تقني من جميع الفئات بأفضل الأسعار في العراق</p>
+            </div>
+            
+            <div class="flex flex-wrap gap-3 mb-8 justify-center">
+                <button class="category-chip active bg-primary text-white" onclick="filterProducts('all')">الكل</button>
+                <button class="category-chip bg-white border border-gray-200" onclick="filterProducts('apple')">أجهزة أبل</button>
+                <button class="category-chip bg-white border border-gray-200" onclick="filterProducts('laptops')">لابتوبات</button>
+                <button class="category-chip bg-white border border-gray-200" onclick="filterProducts('mobiles')">هواتف</button>
+                <button class="category-chip bg-white border border-gray-200" onclick="filterProducts('components')">مكونات</button>
+            </div>
+            
+            <div class="products-grid" id="products-container">
+                <!-- المنتجات ستظهر هنا -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Bundles Section -->
+    <section id="bundles" class="py-16 bg-white">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">تجميعات جاهزة</h2>
+                <p class="text-gray-600 text-xl max-w-3xl mx-auto">اختر من بين 300+ تجميعة جاهزة مصممة خصيصاً لتلبية احتياجاتك</p>
+            </div>
+            
+            <div class="flex flex-wrap gap-3 mb-8 justify-center">
+                <button class="category-chip active bg-primary text-white" onclick="filterBundles('all')">الكل</button>
+                <button class="category-chip bg-white border border-gray-200" onclick="filterBundles('budget')">اقتصادي</button>
+                <button class="category-chip bg-white border border-gray-200" onclick="filterBundles('mid-range')">متوسط</button>
+                <button class="category-chip bg-white border border-gray-200" onclick="filterBundles('high-end')">عالي</button>
+                <button class="category-chip bg-white border border-gray-200" onclick="filterBundles('premium')">متميز</button>
+            </div>
+            
+            <div class="products-grid" id="bundles-container">
+                <!-- التجميعات ستظهر هنا -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // بيانات المنتجات الحقيقية
+        const products = [
+            // أجهزة أبل
+            {
+                id: "iphone-15-pro",
+                name: "iPhone 15 Pro Max 256GB",
+                price: 1299,
+                image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "apple",
+                description: "أقوى هاتف ذكي من Apple بشريحة A17 Pro الجديدة"
+            },
+            {
+                id: "macbook-pro-16",
+                name: "MacBook Pro 16-inch M3 Max",
+                price: 3299,
+                image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "apple",
+                description: "جهاز MacBook Pro الأقوى على الإطلاق للمحترفين"
+            },
+            {
+                id: "ipad-pro-13",
+                name: "iPad Pro 13-inch M2",
+                price: 1299,
+                image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "apple",
+                description: "أقوى iPad مع شريحة M2 وأداء مذهل"
+            },
+            {
+                id: "apple-watch-ultra",
+                name: "Apple Watch Ultra 2",
+                price: 799,
+                image: "https://images.unsplash.com/photo-1633464899902-9d4f1c2b09b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "apple",
+                description: "ساعة Apple الأكثر متانة للأداء المتطرف"
+            },
+            {
+                id: "mac-mini-m2",
+                name: "Mac Mini M2 Pro",
+                price: 1299,
+                image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "apple",
+                description: "كمبيوتر مكتبي قوي بحجم صغير"
+            },
+            {
+                id: "airpods-max",
+                name: "AirPods Max",
+                price: 549,
+                image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "apple",
+                description: "سماعات رأس لاسلكية فاخرة من Apple"
+            },
+            
+            // لابتوبات
+            {
+                id: "asus-rog-strix",
+                name: "ASUS ROG Strix G18",
+                price: 2299,
+                image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "laptops",
+                description: "لابتوب ألعاب قوي من ASUS بشاشة كبيرة"
+            },
+            {
+                id: "dell-xps-15",
+                name: "Dell XPS 15 9530",
+                price: 1999,
+                image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "laptops",
+                description: "لابتوب محمول فاخر من Dell بشاشة OLED رائعة"
+            },
+            {
+                id: "lenovo-legion",
+                name: "Lenovo Legion 7i",
+                price: 1899,
+                image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "laptops",
+                description: "لابتوب ألعاب متوازن من Lenovo"
+            },
+            {
+                id: "hp-spectre",
+                name: "HP Spectre x360 14",
+                price: 1499,
+                image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "laptops",
+                description: "لابتوب محول فاخر من HP بتصميم أنيق"
+            },
+            
+            // هواتف
+            {
+                id: "samsung-s24-ultra",
+                name: "Samsung Galaxy S24 Ultra",
+                price: 1199,
+                image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "mobiles",
+                description: "هاتف Samsung الذكي الأكثر تطوراً"
+            },
+            {
+                id: "google-pixel-8",
+                name: "Google Pixel 8 Pro",
+                price: 999,
+                image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "mobiles",
+                description: "هاتف Google الذكي بكاميرا استثنائية"
+            },
+            
+            // مكونات
+            {
+                id: "rtx-4090",
+                name: "NVIDIA GeForce RTX 4090",
+                price: 1599,
+                image: "https://images.unsplash.com/photo-1591488320449-011701bb6701?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "components",
+                description: "أقوى كرت شاشة للألعاب والتطبيقات الاحترافية"
+            },
+            {
+                id: "ryzen-9-7950x",
+                name: "AMD Ryzen 9 7950X",
+                price: 699,
+                image: "https://images.unsplash.com/photo-1587202372634-32705e3bf49c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "components",
+                description: "أقوى معالج من AMD للأداء المتميز"
+            }
+        ];
+
+        // بيانات التجميعات
+        const bundles = [
+            // اقتصادي
+            {
+                id: "budget-gaming-1",
+                name: "تجميعة ألعاب اقتصادية - الأساسية",
+                price: 899,
+                image: "https://images.unsplash.com/photo-1587202372634-32705e3bf49c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "budget",
+                description: "تجميعة ألعاب اقتصادية مناسبة للألعاب المتوسطة"
+            },
+            {
+                id: "budget-gaming-2",
+                name: "تجميعة ألعاب اقتصادية - المتقدمة",
+                price: 1099,
+                image: "https://picsum.photos/600/400?random=101",
+                category: "budget",
+                description: "تجميعة ألعاب اقتصادية بمكونات متقدمة"
+            },
+            
+            // متوسط
+            {
+                id: "mid-gaming-1",
+                name: "تجميعة ألعاب متوسطة - المتوازنة",
+                price: 1499,
+                image: "https://images.unsplash.com/photo-1560769684-55015d5f9c2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "mid-range",
+                description: "تجميعة ألعاب متوازنة لأداء ممتاز في الألعاب"
+            },
+            {
+                id: "mid-gaming-2",
+                name: "تجميعة ألعاب متوسطة - المحسنة",
+                price: 1799,
+                image: "https://picsum.photos/600/400?random=201",
+                category: "mid-range",
+                description: "تجميعة ألعاب متوسطة بمكونات محسنة"
+            },
+            
+            // عالي
+            {
+                id: "high-gaming-1",
+                name: "تجميعة ألعاب عالية - المحترفين",
+                price: 2499,
+                image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "high-end",
+                description: "تجميعة ألعاب للمحترفين بأعلى أداء ممكن"
+            },
+            
+            // متميز
+            {
+                id: "premium-gaming-1",
+                name: "تجميعة ألعاب متميزة - القصوى",
+                price: 3499,
+                image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                category: "premium",
+                description: "تجميعة ألعاب قصوى لأفضل تجربة ألعاب ممكنة"
+            }
+        ];
+
+        // دالة عرض المنتجات
+        function displayProducts(category = 'all') {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+            
+            let productsToShow = category === 'all' ? products : products.filter(p => p.category === category);
+            
+            productsToShow.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="discount-badge">خصم ${Math.floor(Math.random() * 20) + 5}%</div>
+                    </div>
+                    <div class="p-5 flex-grow">
+                        <h3 class="font-bold text-lg mb-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${product.description}</p>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-yellow-400 mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(4.7)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-auto">
+                            <div>
+                                <span class="text-xl font-bold text-primary">${product.price}$</span>
+                                <span class="text-gray-500 line-through text-sm mr-2">${Math.round(product.price * 1.1)}$</span>
+                            </div>
+                            <div class="text-green-600 text-sm font-medium">
+                                <i class="fas fa-check-circle mr-1"></i>
+                                متوفر
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button class="w-full bg-primary text-white py-3 rounded-lg font-medium add-to-cart" onclick="addToCart('${product.id}', '${product.name}', ${product.price})">
+                            إضافة إلى السلة
+                        </button>
+                    </div>
+                `;
+                container.appendChild(productCard);
+            });
+            
+            updateCategoryButtons('products', category);
+        }
+
+        // دالة عرض التجميعات
+        function displayBundles(category = 'all') {
+            const container = document.getElementById('bundles-container');
+            container.innerHTML = '';
+            
+            let bundlesToShow = category === 'all' ? bundles : bundles.filter(b => b.category === category);
+            
+            bundlesToShow.forEach(bundle => {
+                const bundleCard = document.createElement('div');
+                bundleCard.className = 'product-card';
+                const badgeClass = bundle.category === 'budget' ? 'bg-green-500' : 
+                                 bundle.category === 'mid-range' ? 'bg-blue-500' : 
+                                 bundle.category === 'high-end' ? 'bg-purple-500' : 'bg-yellow-500';
+                
+                bundleCard.innerHTML = `
+                    <div class="relative">
+                        <img src="${bundle.image}" alt="${bundle.name}" class="product-image">
+                        <div class="discount-badge">خصم ${Math.floor(Math.random() * 20) + 5}%</div>
+                    </div>
+                    <div class="p-5 flex-grow">
+                        <h3 class="font-bold text-lg mb-2">${bundle.name} <span class="text-xs ${badgeClass} text-white px-2 py-1 rounded-full">${bundle.category}</span></h3>
+                        <p class="text-gray-600 text-sm mb-4">${bundle.description}</p>
+                        <div class="flex justify-between items-center mt-auto">
+                            <div>
+                                <span class="text-xl font-bold text-primary">${bundle.price}$</span>
+                                <span class="text-gray-500 line-through text-sm mr-2">${Math.round(bundle.price * 1.1)}$</span>
+                            </div>
+                            <div class="text-green-600 text-sm font-medium">
+                                <i class="fas fa-check-circle mr-1"></i>
+                                متوفر
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button class="w-full bg-primary text-white py-3 rounded-lg font-medium add-to-cart" onclick="addToCart('${bundle.id}', '${bundle.name}', ${bundle.price})">
+                            إضافة إلى السلة
+                        </button>
+                    </div>
+                `;
+                container.appendChild(bundleCard);
+            });
+            
+            updateCategoryButtons('bundles', category);
+        }
+
+        // دالة تصفية المنتجات
+        function filterProducts(category) {
+            displayProducts(category);
+        }
+
+        // دالة تصفية التجميعات
+        function filterBundles(category) {
+            displayBundles(category);
+        }
+
+        // دالة تحديث أزرار التصنيف النشطة
+        function updateCategoryButtons(type, activeCategory) {
+            const buttons = document.querySelectorAll(`[onclick*="${type}"]`);
+            buttons.forEach(button => {
+                if (button.textContent.includes(activeCategory) || (activeCategory === 'all' && button.textContent.includes('الكل'))) {
+                    button.classList.add('active', 'bg-primary', 'text-white');
+                    button.classList.remove('bg-white', 'border');
+                } else {
+                    button.classList.remove('active', 'bg-primary', 'text-white');
+                    button.classList.add('bg-white', 'border');
+                }
+            });
+        }
+
+        // دالة إضافة إلى السلة
+        function addToCart(productId, productName, productPrice) {
+            const cartCount = document.getElementById('header-cart-count');
+            let currentCount = parseInt(cartCount.textContent);
+            cartCount.textContent = currentCount + 1;
+            
+            alert(`تم إضافة ${productName} إلى السلة`);
+        }
+
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts();
+            displayBundles();
+        });
+    </script>
+</body>
+</html>
